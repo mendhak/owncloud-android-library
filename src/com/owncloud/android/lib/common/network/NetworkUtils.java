@@ -41,6 +41,7 @@ import javax.net.ssl.TrustManager;
 
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.protocol.Protocol;
+import org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory;
 import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 
@@ -90,7 +91,7 @@ public class NetworkUtils {
         } catch (IllegalStateException e) {
             // nothing to do here; really
         }
-        boolean isRegistered = (pr != null && pr.getSocketFactory() instanceof AdvancedSslSocketFactory);
+        boolean isRegistered = (pr != null && pr.getSocketFactory() instanceof SecureProtocolSocketFactory);
         if (register && !isRegistered) {
             Protocol.registerProtocol("https", new Protocol("https", getAdvancedSslSocketFactory(context), 443));
             
